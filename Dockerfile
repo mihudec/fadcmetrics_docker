@@ -1,15 +1,10 @@
-FROM python:3.10-alpine
+FROM python:3.12-alpine
 
-ENV branch=v0.1.0-beta
 
-RUN apk update && apk add git
 WORKDIR /usr/local/src
 
+ADD fadcmetrics ./fadcmetrics
 
-RUN git clone https://github.com/mihudec/fadcclient.git
-RUN git clone https://github.com/mihudec/fadcmetrics.git
-
-RUN pip3 install -e fadcclient/
-RUN pip3 install -e fadcmetrics/
+RUN pip3 install ./fadcmetrics
 
 CMD ["fadcmetrics", "--config", "/config/fadcmetrics.yml"]
